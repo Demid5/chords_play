@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features={"src/main/resources/ru/altstu"},
-        glue = "test/java",
+        //glue = "test/java",
         snippets = SnippetType.CAMELCASE
 )
 public class CucuRunner {

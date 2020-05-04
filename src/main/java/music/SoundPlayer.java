@@ -11,7 +11,7 @@ import java.util.*;
 
 public class SoundPlayer {
     private static final Logger LOGGER = Logger.getLogger(SoundPlayer.class);
-    private static final long DEFAULT_TIME = 5;
+    public static final long DEFAULT_TIME = 5;
     private static final long MIN_TIME = 1;
     private static final long MAX_TIME = 100;
     private static final long MILLISECONDS_IN_SECONDS = 1000;

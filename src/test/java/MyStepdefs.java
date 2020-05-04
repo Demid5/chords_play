@@ -1,8 +1,10 @@
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import music.SoundPlayer;
+import org.junit.Assert;
 
 import java.util.AbstractMap;
 import java.util.LinkedList;
@@ -22,54 +24,29 @@ public class MyStepdefs {
 
     @When("^I entered chord \"([^\"]*)\"$")
     public void iEnteredChord(String chord) throws Throwable {
-
+        this.iAdd(chord);
     }
 
     @Then("^I heard Am with default time equals (\\d+)$")
-    public void iHeardAmWithDefaultTimeEquals(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iHeardAmWithDefaultTimeEquals(int totalTime) throws Throwable {
+        long startTime = System.nanoTime();
+        Assert.assertTrue(soundPlayer.run());
+        long estimatedTime = (System.nanoTime() - startTime) / 1000000;
+        Assert.assertTrue(Math.abs(estimatedTime - totalTime * 1000) < 1000);
     }
 
     @When("^I add \"([^\"]*)\"$")
-    public void iAdd(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @When("^then \"([^\"]*)\"$")
-    public void then(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @Then("^I heard my music (\\d+) \\* default time equals (\\d+)$")
-    public void iHeardMyMusicDefaultTimeEquals(int arg1, int arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iAdd(String chord) throws Throwable {
+        soundPlayer.addChord(chord);
     }
 
     @When("^I entered chord \"([^\"]*)\" with time equals (\\d+)$")
-    public void iEnteredChordWithTimeEquals(String arg1, int arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iEnteredChordWithTimeEquals(String chord, int time) throws Throwable {
+        this.iAddTimeEquals(chord, time);
     }
 
-    @Then("^I heard my music (\\d+) time$")
-    public void iHeardMyMusicTime(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @When("^I add \"([^\"]*)\" time equals (\\d+)$")
-    public void iAddTimeEquals(String arg1, int arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @When("^then \"([^\"]*)\" equals (\\d+)$")
-    public void thenEquals(String arg1, int arg2) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @And("^I add \"([^\"]*)\" time equals (\\d+)$")
+    public void iAddTimeEquals(String chord, int time) throws Throwable {
+        soundPlayer.addChord(chord, time);
     }
 }
