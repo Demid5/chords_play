@@ -1,5 +1,12 @@
 package music;
 
 public enum Chord {
-    Am, Em, Dm, Fm
+    Am,
+    A,
+    D,
+    Dm,
+    E,
+    Em,
+    C,
+    G
 }
