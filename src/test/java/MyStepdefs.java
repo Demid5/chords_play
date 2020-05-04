@@ -2,18 +2,27 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import music.SoundPlayer;
+
+import java.util.AbstractMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class MyStepdefs {
+
+    private SoundPlayer soundPlayer;
+    private List<Map.Entry<String, Long>> chords;
+
     @Given("^I have tools for sound on Java$")
     public void iHaveToolsForSoundOnJava() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        this.soundPlayer = new SoundPlayer();
+        this.chords = new LinkedList<>();
     }
 
     @When("^I entered chord \"([^\"]*)\"$")
-    public void iEnteredChord(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void iEnteredChord(String chord) throws Throwable {
+
     }
 
     @Then("^I heard Am with default time equals (\\d+)$")

@@ -15,7 +15,8 @@ public class Main {
         stringLongMap.add(new AbstractMap.SimpleEntry<>("Em", 5L));
         stringLongMap.add(new AbstractMap.SimpleEntry<>("G", 5L));
         stringLongMap.add(new AbstractMap.SimpleEntry<>("C", 5L));
-        soundPlayer.run(stringLongMap);
+        soundPlayer.addChord(stringLongMap);
+        soundPlayer.run();
     }
 
 }

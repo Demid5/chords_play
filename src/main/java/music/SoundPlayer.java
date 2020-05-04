@@ -7,8 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class SoundPlayer {
     private static final Logger LOGGER = Logger.getLogger(SoundPlayer.class);
@@ -17,7 +16,7 @@ public class SoundPlayer {
     private static final long MAX_TIME = 100;
     private static final long MILLISECONDS_IN_SECONDS = 1000;
     private Map<Chord, Sound> chordToSound = new EnumMap<>(Chord.class);
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    List<Map.Entry<Chord, Long>> chords = new LinkedList<>();
 
     private String getPath(String nameChord) {
         String prefix = "C:\\Users\\Ivan\\Desktop\\collf\\lab4\\src\\main\\resources\\ru\\altstu\\chords\\";
@@ -44,35 +43,67 @@ public class SoundPlayer {
         }
     }
 
-    public boolean run(String chord) {
-        return run(chord, DEFAULT_TIME);
+    public boolean addChord(String chord) {
+        if (checkChord(chord)) {
+            chords.add(
+                    new AbstractMap.SimpleEntry<>(
+                            Chord.valueOf(chord),
+                            DEFAULT_TIME
+                    )
+            );
+            return true;
+        }
+        LOGGER.info("Chord: " + chord + " unimplemented yet");
+        return false;
     }
 
-    public boolean run(String chord, long time) {
-        return run(Collections.<Map.Entry<String, Long>>singletonList(new AbstractMap.SimpleEntry<>(chord, time)));
+    public boolean addChord(String chord, long time) {
+        if (!checkChord(chord)) {
+            LOGGER.info("Chord: " + chord + " unimplemented yet");
+            return false;
+        }
+        if (!checkChord(chord)) {
+            LOGGER.info("Time must be in range: (" + MIN_TIME + ", " + MAX_TIME + ")");
+            return false;
+        }
+        chords.add(
+                new AbstractMap.SimpleEntry<>(
+                        Chord.valueOf(chord),
+                        time
+                )
+        );
+        return true;
     }
+
+    public boolean addChord(List<Map.Entry<String, Long>> chordsStr) {
+        for (Map.Entry<String, Long> entry : chordsStr) {
+            String chord = entry.getKey();
+            long time = entry.getValue();
+            if (!addChord(chord, time)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private void runChord(Chord chord, long time) {
         Sound sound = chordToSound.get(chord);
         sound.play(time * MILLISECONDS_IN_SECONDS);
     }
 
-    /**
-     * @param chords must be contain entries with correct name chord and time in range (MIN_TIME, MAX_TIME)
-     * */
-    public boolean run(List<Map.Entry<String, Long>> chords) {
-        // check input data
-        if (!checkNamesChordsAndTimes(chords)) {
-            LOGGER.info("check failed");
+    public boolean run() {
+        if (chords.isEmpty()) {
+            LOGGER.warn("Empty music");
             return false;
         }
         LOGGER.info("start play");
         // to play this
-        for (Map.Entry<String, Long> entry : chords) {
-            String chord = entry.getKey();
+        for (Map.Entry<Chord, Long> entry : chords) {
+            Chord chord = entry.getKey();
             long time = entry.getValue();
             LOGGER.info("start run chord");
-            runChord(Chord.valueOf(chord), time);
+            runChord(chord, time);
         }
         return true;
     }
@@ -88,17 +119,6 @@ public class SoundPlayer {
 
     private boolean checkTime(long time) {
         return time >= MIN_TIME && time <= MAX_TIME;
-    }
-
-    private boolean checkNamesChordsAndTimes(List<Map.Entry<String, Long>> chords) {
-        for (Map.Entry<String, Long> entry : chords) {
-            String chord = entry.getKey();
-            long time = entry.getValue();
-            if (!(checkChord(chord) &&
-                    checkTime(time)))
-                return false;
-        }
-        return true;
     }
 
 }
