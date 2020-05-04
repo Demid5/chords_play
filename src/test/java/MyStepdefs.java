@@ -49,4 +49,9 @@ public class MyStepdefs {
     public void iAddTimeEquals(String chord, int time) throws Throwable {
         soundPlayer.addChord(chord, time);
     }
+
+    @Then("^I nothing to heard$")
+    public void iNothingToHeard() throws Throwable {
+        Assert.assertFalse(soundPlayer.run());
+    }
 }

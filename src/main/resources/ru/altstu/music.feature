@@ -25,3 +25,14 @@ Feature: Play one chord
     And I add "Em" time equals 10
     And I add "Dm" time equals 4
     Then I heard Am with default time equals 26
+
+  Scenario:
+    Given I have tools for sound on Java
+    When I entered chord "Amm"
+    Then I nothing to heard
+
+  Scenario:
+    Given I have tools for sound on Java
+    When I entered chord "Dmm"
+    And I add "Dm" time equals 4
+    Then I heard Am with default time equals 4
