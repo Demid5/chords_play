@@ -1,4 +1,5 @@
-# chords_play
+# chords_play 
+## Генератор мелодий по заданным аккордам.
 ## Build
 cd chords_play/ <br>
 mvn package
