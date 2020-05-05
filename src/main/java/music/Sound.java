@@ -34,6 +34,10 @@ public class Sound implements AutoCloseable {
         }
     }
 
+    /**
+     * the sound lasts for time
+     * @param time is time of sound
+     */
     public void play(long time) {
         try {
             clip.open(stream);

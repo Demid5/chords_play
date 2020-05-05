@@ -43,6 +43,11 @@ public class SoundPlayer {
         }
     }
 
+    /**
+     * add chord to list of sounds
+     * @param chord is adding chord
+     * @return true if successfully added , not - otherwise
+     */
     public boolean addChord(String chord) {
         if (checkChord(chord)) {
             chords.add(
@@ -57,12 +62,18 @@ public class SoundPlayer {
         return false;
     }
 
+    /**
+     * add chord to list of sounds
+     * @param chord is adding chord
+     * @param time is sound time
+     * @return true if successfully added , not - otherwise
+     */
     public boolean addChord(String chord, long time) {
         if (!checkChord(chord)) {
             LOGGER.info("Chord: " + chord + " unimplemented yet");
             return false;
         }
-        if (!checkChord(chord)) {
+        if (!checkTime(time)) {
             LOGGER.info("Time must be in range: (" + MIN_TIME + ", " + MAX_TIME + ")");
             return false;
         }
@@ -75,6 +86,11 @@ public class SoundPlayer {
         return true;
     }
 
+    /**
+     * this method need for debugging
+     * @param chordsStr - list of chord with time
+     * @return true if successfully added , not - otherwise
+     */
     public boolean addChord(List<Map.Entry<String, Long>> chordsStr) {
         for (Map.Entry<String, Long> entry : chordsStr) {
             String chord = entry.getKey();
@@ -92,6 +108,10 @@ public class SoundPlayer {
         sound.play(time * MILLISECONDS_IN_SECONDS);
     }
 
+    /**
+     * plays a melody
+     * @return true if successfully ring out , not - otherwise
+     */
     public boolean run() {
         if (chords.isEmpty()) {
             LOGGER.warn("Empty music");
