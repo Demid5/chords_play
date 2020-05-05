@@ -58,7 +58,7 @@ public class SoundPlayer {
             );
             return true;
         }
-        LOGGER.info("Chord: " + chord + " unimplemented yet");
+        LOGGER.warn("Chord: " + chord + " unimplemented yet");
         return false;
     }
 
@@ -70,11 +70,11 @@ public class SoundPlayer {
      */
     public boolean addChord(String chord, long time) {
         if (!checkChord(chord)) {
-            LOGGER.info("Chord: " + chord + " unimplemented yet");
+            LOGGER.warn("Chord: " + chord + " unimplemented yet");
             return false;
         }
         if (!checkTime(time)) {
-            LOGGER.info("Time must be in range: (" + MIN_TIME + ", " + MAX_TIME + ")");
+            LOGGER.warn("Time must be in range: (" + MIN_TIME + ", " + MAX_TIME + ")");
             return false;
         }
         chords.add(
