@@ -1,5 +1,6 @@
 # chords_play 
 ## Генератор мелодий по заданным аккордам.
+### Методология разработки - BDD
 ## Build
 cd chords_play/ <br>
 mvn package
